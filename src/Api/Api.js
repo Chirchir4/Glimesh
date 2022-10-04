@@ -12,7 +12,6 @@ const authLink = setContext((_, { headers }) => {
   const token = JSON.parse(localStorage.getItem('credentials'));
   // return the headers to the context so httpLink can read them
   const dt = token.access_token
-  console.log("aaaaaaaaaaaaa", dt)
   return {
     headers: {
       ...headers,
