@@ -4,14 +4,17 @@ import './index.css';
 import App from './App';
 import reportWebVitals from './reportWebVitals';
 import {
-  ApolloClient,
-  InMemoryCache,
+  // ApolloClient,
+  // InMemoryCache,
   ApolloProvider
 } from "@apollo/client";
-const client = new ApolloClient({
-  uri: 'https://glimesh.tv/api/graph',
-  cache: new InMemoryCache()
-});
+import { client } from './Api/Api';
+
+
+// const client = new ApolloClient({
+//   uri: 'https://glimesh.tv/api/graph',
+//   cache: new InMemoryCache()
+// });
 
 const root = ReactDOM.createRoot(document.getElementById('root'));
 root.render(
