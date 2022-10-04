@@ -1,7 +1,7 @@
 import { gql } from "@apollo/client";
 
 export const getData = gql`
-query {
+query getData {
 	users(first:5){
 		edges{
 			node{
@@ -14,6 +14,16 @@ query {
 								metadata{
 									edges{
 										node{
+											id
+											ingestServer
+											insertedAt
+											ingestServer
+											videoCodec
+											videoHeight
+											videoWidth
+											vendorVersion
+											streamTimeSeconds
+											videoWidth
 											nackPackets
 											sourcePing
 											sourceBitrate
