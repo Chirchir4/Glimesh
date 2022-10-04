@@ -2,15 +2,24 @@ import { gql } from "@apollo/client";
 
 export const getData = gql`
 query getData {
-	users(first:5){
+	users(first:3){
 		edges{
 			node{
 				username
 				id
 				channel{
+					id
+					status
+					title
+					updatedAt
 					streams{
 						edges{
 							node{
+								title
+								startedAt
+								insertedAt
+								updatedAt
+								id
 								metadata{
 									edges{
 										node{
