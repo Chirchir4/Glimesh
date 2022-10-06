@@ -4,6 +4,7 @@ import { getToken } from './auth/auth';
 import Header from './Header';
 import { TableExampleCelled } from './Table';
 import MetadataContext from './Metadata'
+import ChannelTitle from './ChannelTitle';
 
 function App() {
   useEffect(() => {
@@ -18,6 +19,7 @@ function App() {
       }
     })
     checkToken()
+    const token = ((JSON.parse(localStorage.getItem('credentials'))));
 
   }, [])
 
@@ -27,6 +29,7 @@ function App() {
       <MetadataContext>
         <TableExampleCelled />
       </MetadataContext>
+      <ChannelTitle />
     </div>
   );
 }

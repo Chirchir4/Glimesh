@@ -2,26 +2,56 @@
 
 import { ApolloClient, ApolloLink, createHttpLink, InMemoryCache } from '@apollo/client';
 import { setContext } from '@apollo/client/link/context';
+import { split } from '@apollo/client';
+import { getMainDefinition } from '@apollo/client/utilities';
+import { GraphQLWsLink } from '@apollo/client/link/subscriptions';
+import { createClient } from 'graphql-ws';
+
+
 
 const httpLink = createHttpLink({
   uri: 'https://glimesh.tv/api/graph',
 });
 
+const token = ((JSON.parse(localStorage.getItem('credentials'))).access_token);
 const authLink = setContext((_, { headers }) => {
-  // get the authentication token from local storage if it exists
-  const token = JSON.parse(localStorage.getItem('credentials'));
-  // return the headers to the context so httpLink can read them
-  const dt = token.access_token
   return {
     headers: {
       ...headers,
-      authorization: dt ? `Bearer ${dt}` : "",
+      authorization: token ? `Bearer ${token}` : "",
     }
   }
 });
 
+const wsLink = new GraphQLWsLink(createClient({
+  url: `wss://glimesh.tv/api/graph/websocket?vsn=2.0.0&token=${token}`,
+
+}));
+wsLink.onopen = () => {
+  wsLink.send(JSON.stringify(["1", "1", "__absinthe__:control", "phx_join", {}]));
+};
+
+// The split function takes three parameters:
+//
+// * A function that's called for each operation to execute
+// * The Link to use for an operation if the function returns a "truthy" value
+// * The Link to use for an operation if the function returns a "falsy" value
+const splitLink = split(
+  ({ query }) => {
+    const definition = getMainDefinition(query);
+    return (
+      definition.kind === 'OperationDefinition' &&
+      definition.operation === 'subscription'
+    );
+  },
+  wsLink,
+  authLink.concat(httpLink),
+);
+
+
+
 export const client = new ApolloClient({
-  link: authLink.concat(httpLink),
+  link: splitLink,
   cache: new InMemoryCache()
 });
 

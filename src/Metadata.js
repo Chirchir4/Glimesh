@@ -1,8 +1,9 @@
 import { createContext } from "react";
 import React, { useEffect, useState } from 'react'
-import { useQuery } from '@apollo/client';
+import { useQuery, useSubscription } from '@apollo/client';
 import { getData } from "./Queries/Query";
 import { extractCorrectData } from './helpers';
+import { channelTitle } from "./Subscriptions/ChannelSubs";
 
 
 export const MetadataContext = createContext()
@@ -25,6 +26,8 @@ export default function StreamMetaData({ children }) {
     if (loading) return "Loading...";
 
     if (error) console.log(JSON.stringify(error));
+
+
 
     return (
         <MetadataContext.Provider value={glimeshData}>
