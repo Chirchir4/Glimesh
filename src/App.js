@@ -1,8 +1,9 @@
 import './App.css';
-import StreamMetaData from './StreamMetaData';
 import { useEffect } from 'react';
 import { getToken } from './auth/auth';
-
+import Header from './Header';
+import { TableExampleCelled } from './Table';
+import MetadataContext from './Metadata'
 
 function App() {
   useEffect(() => {
@@ -17,11 +18,15 @@ function App() {
       }
     })
     checkToken()
+
   }, [])
 
   return (
     <div className="App">
-      <StreamMetaData />
+      <Header />
+      <MetadataContext>
+        <TableExampleCelled />
+      </MetadataContext>
     </div>
   );
 }
