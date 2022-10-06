@@ -1,20 +1,11 @@
 import React from 'react';
 import ReactDOM from 'react-dom/client';
+import 'semantic-ui-css/semantic.min.css';
 import './index.css';
 import App from './App';
 import reportWebVitals from './reportWebVitals';
-import {
-  // ApolloClient,
-  // InMemoryCache,
-  ApolloProvider
-} from "@apollo/client";
+import { ApolloProvider } from "@apollo/client";
 import { client } from './Api/Api';
-
-
-// const client = new ApolloClient({
-//   uri: 'https://glimesh.tv/api/graph',
-//   cache: new InMemoryCache()
-// });
 
 const root = ReactDOM.createRoot(document.getElementById('root'));
 root.render(
