@@ -1,29 +1,23 @@
 import { gql } from "@apollo/client";
 
 export const getData = gql`
-query getData {
-	users(first:3){
+query {
+	users{
 		edges{
 			node{
 				username
 				id
-				channel{
-					id
-					status
-					title
-					updatedAt
-					streams{
-						edges{
-							node{
-								title
-								startedAt
-								insertedAt
-								updatedAt
-								id
+				followingLiveChannels{
+					edges{
+						node{
+							id
+							stream{
+								endedAt
 								metadata{
 									edges{
 										node{
 											id
+											updatedAt
 											ingestServer
 											insertedAt
 											ingestServer
@@ -45,8 +39,9 @@ query getData {
 						}
 					}
 				}
+				
 			}
 		}
-         }
+}
 }
 `

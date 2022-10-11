@@ -1,8 +1,9 @@
 import gql from "graphql-tag";
 
 export const channelTitle = gql`
- subscription  channelTitle{
-  channel(id:6) {
+
+ subscription      {
+  channel(id:1) {
     title
   }
 }

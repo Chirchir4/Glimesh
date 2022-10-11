@@ -1,6 +1,6 @@
 .Header{
-    background-color:#3b4ef8;
-    height:70px;
+    background-color:#25CCF7;
+    height:75px;
     width: auto;
     position: sticky;
     top: 0;  
@@ -9,11 +9,24 @@
   justify-content: center;
   color: white;
   font-size: 22px;
+  margin-bottom: 70px;
 
 }
 .card{
-    border:solid black;
-   border-radius: 4px;
-   margin:12px;
+    border:solid  #ccc;
+   border-radius: 8px;
+   margin:16px;
+
   
+}
+.cardHeader{
+  font-size: small;
+  margin:4px;
+  /* background-color: rgb(114, 215, 248); */
+  border-radius: 8px;
+
+}
+.cardBody{
+  margin: 16px;
+  scroll-behavior: smooth;
 }

@@ -1,9 +1,10 @@
 import { createContext } from "react";
 import React, { useEffect, useState } from 'react'
-import { useQuery, useSubscription } from '@apollo/client';
+import { useQuery } from '@apollo/client';
 import { getData } from "./Queries/Query";
-import { extractCorrectData } from './helpers';
-import { channelTitle } from "./Subscriptions/ChannelSubs";
+import { finalLiveData } from "./helpers";
+
+
 
 
 export const MetadataContext = createContext()
@@ -11,16 +12,20 @@ export const MetadataContext = createContext()
 export default function StreamMetaData({ children }) {
     const [glimeshData, setGlimeshData] = useState([])
     const { loading, error, data } = useQuery(getData);
+    console.log(data)
+
 
     const updateData = (updated) => {
         setGlimeshData(updated)
     }
     useEffect(() => {
-        extractCorrectData(data, updateData)
+        finalLiveData(data, updateData)
+        console.log(data)
     }, [data])
 
     useEffect(() => {
-        console.log(glimeshData)
+        console.log("glimeeeesh", glimeshData)
+
     }, [glimeshData])
 
     if (loading) return "Loading...";

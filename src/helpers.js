@@ -1,36 +1,41 @@
 
-export const extractCorrectData = (rawData, updateData) => {
-    const users = []
+//////////livedata
+export const finalLiveData = (rawData, updateData) => {
+
     if (!rawData) {
         return
     }
+    console.log("raw", rawData)
+    let users = []
     rawData.users.edges.forEach((user, userIndex) => {
-        let streamList = []
-        user.node.channel.streams.edges.forEach((stream, streamIndex) => {
-            let metaList = []
-            stream.node.metadata.edges.forEach((meta, metaIndex) => {
-                metaList.push(meta.node)
-                if ((metaIndex + 1) >= stream.node.metadata.edges.length) {
-                    streamList.push({
-                        ...stream.node,
-                        metadata: metaList
-                    })
-                }
+        let liveChannel
+        let metaList = []
+        user.node.followingLiveChannels.edges[0]?.node.stream.metadata.edges.forEach((meta, metaIndex) => {
+            metaList.push({
+                ...meta.node
             })
-            if ((streamIndex + 1) >= user.node.channel.streams.edges.length) {
-                users.push({
-                    username: user.node.username,
-                    id: user.node.id,
-                    channel: {
-                        ...user.node.channel,
-                        streams: streamList
+            if ((metaIndex + 1) >= user.node.followingLiveChannels.edges[0].node.stream.metadata.edges.length) {
+                const sortData = metaList.sort((a, b) => { return new Date(b.updatedAt) - new Date(a.updatedAt) });
+                liveChannel = {
+                    ...user.node.followingLiveChannels.edges[0].node,
+                    stream: {
+                        ...user.node.followingLiveChannels.edges[0].node.stream,
+                        metadata: sortData[0]
                     }
+                }
+                users.push({
+                    ...user.node,
+                    followingLiveChannels: [
+                        liveChannel
+                    ]
                 })
             }
         })
 
-        if ((userIndex + 1) >= users.length) {
+        if ((userIndex + 1) >= rawData.users.edges.length) {
+            console.log("DDDDDDDDDDDDDDDDDDDDDDDDDDDDDDDDDDDDDDDDD", users)
             updateData(users)
         }
-    });
+    })
+
 }

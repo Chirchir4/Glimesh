@@ -1,6 +1,6 @@
 
 
-import { ApolloClient, ApolloLink, createHttpLink, InMemoryCache } from '@apollo/client';
+import { ApolloClient, createHttpLink, InMemoryCache } from '@apollo/client';
 import { setContext } from '@apollo/client/link/context';
 import { split } from '@apollo/client';
 import { getMainDefinition } from '@apollo/client/utilities';
@@ -14,6 +14,8 @@ const httpLink = createHttpLink({
 });
 
 const token = ((JSON.parse(localStorage.getItem('credentials'))).access_token);
+
+console.log(token)
 const authLink = setContext((_, { headers }) => {
   return {
     headers: {
@@ -24,7 +26,7 @@ const authLink = setContext((_, { headers }) => {
 });
 
 const wsLink = new GraphQLWsLink(createClient({
-  url: `wss://glimesh.tv/api/graph/websocket?vsn=2.0.0&token=${token}`,
+  url: `wss://glimesh.tv/api/graph/websocket?vsn=2.0.0&token="${token}"`,
 
 }));
 wsLink.onopen = () => {

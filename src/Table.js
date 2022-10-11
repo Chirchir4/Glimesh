@@ -7,49 +7,61 @@ import { MetadataContext } from './Metadata'
 export const TableExampleCelled = () => {
     const context = useContext(MetadataContext)
 
-
-    const glimeshData = context?.map((items) => {
+    console.log("llllllllllllllllllll", context)
+    const glimeshData = context?.map((user, index) => {
         return (
 
-            <div className="card">
+            <Table.Body>
+                <Table.Row>
+                    <Table.Cell>{user.id}</Table.Cell>
+                    <Table.Cell>{user.username}</Table.Cell>
+                    {user.followingLiveChannels.map((channel) => {
+                        return (
+                            <div key={index}>
+                                <Table.Cell>{channel.stream.metadata.lostpackets}</Table.Cell>
+                                <Table.Cell>{channel.stream.metadata.nackPackets}</Table.Cell>
+                                <Table.Cell>{channel.stream.metadata.recvPackets}</Table.Cell>
+                                <Table.Cell>{channel.stream.metadata.sourceBitrate}</Table.Cell>
+                                <Table.Cell>{channel.stream.metadata.sourcePing}</Table.Cell>
 
-                <h2>{items.username}</h2>
-                <h2>{items.id}</h2>
+                            </div>
+                        )
 
-                <Table celled>
-                    <Table.Header>
-                        <Table.Row>
+                    })
 
-                            <Table.HeaderCell>Lost Packets</Table.HeaderCell>
-                            <Table.HeaderCell>Nack Packets</Table.HeaderCell>
-                            <Table.HeaderCell>Received Packets</Table.HeaderCell>
-                            <Table.HeaderCell>Source Bitrate</Table.HeaderCell>
-                            <Table.HeaderCell>Source Ping</Table.HeaderCell>
-                        </Table.Row>
-                    </Table.Header>
+                    }
 
-                    <Table.Body>
-                        <Table.Row>
-                            <Table.Cell>
-                            </Table.Cell>
-                            <Table.Cell>Approved</Table.Cell>
-                            <Table.Cell>None</Table.Cell>
-                            <Table.Cell>None</Table.Cell>
-                            <Table.Cell>None</Table.Cell>
-                        </Table.Row>
-
-                    </Table.Body>
+                </Table.Row>
 
 
-                </Table>
-            </div>
+            </Table.Body>
+
+
         )
+
     })
 
     return (
         <div>
-            {glimeshData}
+            <Table celled>
+                <Table.Header>
+                    <Table.Row>
+                        <Table.HeaderCell>Streamer Id</Table.HeaderCell>
+                        <Table.HeaderCell>User Name</Table.HeaderCell>
+                        <Table.HeaderCell>Lost Packets</Table.HeaderCell>
+                        <Table.HeaderCell>Nack Packets</Table.HeaderCell>
+                        <Table.HeaderCell>Received Packets</Table.HeaderCell>
+                        <Table.HeaderCell>Source Bitrate</Table.HeaderCell>
+                        <Table.HeaderCell>Source Ping</Table.HeaderCell>
+
+                    </Table.Row>
+                </Table.Header>
+                {glimeshData}
+
+            </Table>
+
         </div>
     )
+
 
 }
