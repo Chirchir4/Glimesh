@@ -12,26 +12,27 @@ export const TableExampleCelled = () => {
         return (
 
             <Table.Body>
-                <Table.Row>
-                    <Table.Cell>{user.id}</Table.Cell>
-                    <Table.Cell>{user.username}</Table.Cell>
-                    {user.followingLiveChannels.map((channel) => {
-                        return (
-                            <div key={index}>
-                                <Table.Cell>{channel.stream.metadata.lostpackets}</Table.Cell>
-                                <Table.Cell>{channel.stream.metadata.nackPackets}</Table.Cell>
-                                <Table.Cell>{channel.stream.metadata.recvPackets}</Table.Cell>
-                                <Table.Cell>{channel.stream.metadata.sourceBitrate}</Table.Cell>
-                                <Table.Cell>{channel.stream.metadata.sourcePing}</Table.Cell>
 
-                            </div>
-                        )
 
-                    })
+                {user.followingLiveChannels.map((channel) => {
+                    return (
+                        <Table.Row>
+                            <Table.Cell>{user.id}</Table.Cell>
+                            <Table.Cell>{user.username}</Table.Cell>
+                            <Table.Cell>{channel.stream.metadata.lostPackets}</Table.Cell>
+                            <Table.Cell>{channel.stream.metadata.nackPackets}</Table.Cell>
+                            <Table.Cell>{channel.stream.metadata.recvPackets}</Table.Cell>
+                            <Table.Cell>{channel.stream.metadata.sourceBitrate}</Table.Cell>
+                            <Table.Cell>{channel.stream.metadata.sourcePing}</Table.Cell>
 
-                    }
+                        </Table.Row>
+                    )
 
-                </Table.Row>
+                })
+
+                }
+
+
 
 
             </Table.Body>
