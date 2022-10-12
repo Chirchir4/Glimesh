@@ -1,0 +1,5 @@
+1.Open command prompt
+2.cd into your project directory e.g:"cd Desktop/glimesh"
+3.Type command "npm install" on your terminal
+4.Type command"npm start" to run your project,open http://localhost:3000 to view it  on your browser
+ Note:You may have to disable cors on your browser as the api does not allow requests from non_http url
