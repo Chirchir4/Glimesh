@@ -1,11 +1,12 @@
 import axios from 'axios';
 import FormData from 'form-data';
+import config from '../constants/config';
 
 var bodyFormData = new FormData();
 
-bodyFormData.append('grant_type', process.env.grant_type)
-bodyFormData.append('client_id', process.env.client_id)
-bodyFormData.append('client_secret', process.env.client_secret)
+bodyFormData.append('grant_type', config.grant_type)
+bodyFormData.append('client_id', config.client_id)
+bodyFormData.append('client_secret', config.client_secret)
 const url = "https://glimesh.tv/api/oauth/token"
 let options = {
     method: "POST",

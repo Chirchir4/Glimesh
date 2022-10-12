@@ -12,7 +12,7 @@ function App() {
       const Token = JSON.parse(localStorage.getItem('credentials'))
       if (!Token) {
         const dt = await getToken()
-        if (dt.access_token) {
+        if (dt && dt.access_token) {
           localStorage.setItem('credentials', JSON.stringify(dt));
           return
         }

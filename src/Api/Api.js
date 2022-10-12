@@ -13,35 +13,21 @@ const httpLink = createHttpLink({
   uri: 'https://glimesh.tv/api/graph',
 });
 
-const token = ((JSON.parse(localStorage.getItem('credentials'))).access_token);
-console.log(token)
 const authLink = setContext((_, { headers }) => {
+  // get the authentication token from local storage if it exists
+  const token = JSON.parse(localStorage.getItem('credentials'));
+  // return the headers to the context so httpLink can read them
+  const dt = token.access_token
   return {
     headers: {
       ...headers,
-      authorization: token ? `Bearer ${token}` : "",
+      authorization: dt ? `Bearer ${dt}` : "",
     }
   }
 });
-const wsLink = new GraphQLWsLink(createClient({
-  url: `wss://glimesh.tv/api/graph/websocket?vsn=2.0.0&token="${token}"`,
-}));
-wsLink.onopen = () => {
-  wsLink.send(JSON.stringify(["1", "1", "__absinthe__:control", "phx_join", {}]));
-};
-const splitLink = split(
-  ({ query }) => {
-    const definition = getMainDefinition(query);
-    return (
-      definition.kind === 'OperationDefinition' &&
-      definition.operation === 'subscription'
-    );
-  },
-  wsLink,
-  authLink.concat(httpLink),
-);
+
 export const client = new ApolloClient({
-  link: splitLink,
+  link: authLink.concat(httpLink),
   cache: new InMemoryCache()
 });
 
