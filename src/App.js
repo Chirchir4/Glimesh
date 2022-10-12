@@ -2,7 +2,7 @@ import './App.css';
 import { useEffect } from 'react';
 import { getToken } from './auth/auth';
 import Header from './Header';
-import { TableExampleCelled } from './Table';
+import { TableExampleCelled } from './components/Table';
 import MetadataContext from './Context/Metadata'
 
 

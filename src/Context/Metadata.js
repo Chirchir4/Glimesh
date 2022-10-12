@@ -2,7 +2,7 @@ import { createContext } from "react";
 import React, { useEffect, useState } from 'react'
 import { useQuery } from '@apollo/client';
 import { getData } from "../Queries/Query";
-import { finalLiveData } from "../helpers";
+import { finalLiveData } from "../Api/helpers";
 
 export const MetadataContext = createContext()
 export default function StreamMetaData({ children }) {
