@@ -14,7 +14,6 @@ const httpLink = createHttpLink({
 });
 
 const token = ((JSON.parse(localStorage.getItem('credentials'))).access_token);
-
 console.log(token)
 const authLink = setContext((_, { headers }) => {
   return {
@@ -24,20 +23,12 @@ const authLink = setContext((_, { headers }) => {
     }
   }
 });
-
 const wsLink = new GraphQLWsLink(createClient({
   url: `wss://glimesh.tv/api/graph/websocket?vsn=2.0.0&token="${token}"`,
-
 }));
 wsLink.onopen = () => {
   wsLink.send(JSON.stringify(["1", "1", "__absinthe__:control", "phx_join", {}]));
 };
-
-// The split function takes three parameters:
-//
-// * A function that's called for each operation to execute
-// * The Link to use for an operation if the function returns a "truthy" value
-// * The Link to use for an operation if the function returns a "falsy" value
 const splitLink = split(
   ({ query }) => {
     const definition = getMainDefinition(query);
@@ -49,9 +40,6 @@ const splitLink = split(
   wsLink,
   authLink.concat(httpLink),
 );
-
-
-
 export const client = new ApolloClient({
   link: splitLink,
   cache: new InMemoryCache()
