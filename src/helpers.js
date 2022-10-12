@@ -21,7 +21,6 @@ export const finalLiveData = (rawData, updateData) => {
                             metadata: sortData[0]
                         }
                     })
-
                     if ((channelIndex + 1) >= user.node.followingLiveChannels.edges.length) {
 
                         users.push({

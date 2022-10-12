@@ -1,18 +1,16 @@
 import React, { useEffect } from 'react'
 import { Table } from 'semantic-ui-react'
 import { useContext } from 'react'
-import { MetadataContext } from './Metadata'
-import { useState } from 'react'
+import { MetadataContext } from './Context/Metadata'
+
 
 
 
 export const TableExampleCelled = () => {
-
     const context = useContext(MetadataContext)
-
     const glimeshData = () => context?.map((user, index) => {
         return (
-            <Table.Body>
+            <Table.Body key={index}>
                 {user.followingLiveChannels.map((channel, index) => {
                     return (
                         <Table.Row key={index}>
@@ -45,15 +43,10 @@ export const TableExampleCelled = () => {
                         <Table.HeaderCell>Received Packets</Table.HeaderCell>
                         <Table.HeaderCell>Source Bitrate</Table.HeaderCell>
                         <Table.HeaderCell>Source Ping</Table.HeaderCell>
-
                     </Table.Row>
                 </Table.Header>
                 {glimeshData()}
-
             </Table>
-
         </div>
     )
-
-
 }
