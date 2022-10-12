@@ -6,12 +6,10 @@ import { TableExampleCelled } from './Table';
 import MetadataContext from './Metadata'
 
 
-
 function App() {
   useEffect(() => {
     const checkToken = (async () => {
       const Token = JSON.parse(localStorage.getItem('credentials'))
-
       if (!Token) {
         const dt = await getToken()
         if (dt.access_token) {
@@ -21,17 +19,17 @@ function App() {
       }
     })
     checkToken()
-
-
   }, [])
 
   return (
     <div className="App">
       <Header />
-      <MetadataContext>
-        <TableExampleCelled />
-      </MetadataContext>
+      <div className="tableSection">
+        <MetadataContext>
+          <TableExampleCelled />
 
+        </MetadataContext>
+      </div>
     </div>
   );
 }

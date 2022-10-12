@@ -10,8 +10,10 @@ query {
 				followingLiveChannels{
 					edges{
 						node{
+							title
 							id
 							stream{
+								countViewers
 								endedAt
 								metadata{
 									edges{
