@@ -1,5 +1,10 @@
-1.Open command prompt
-2.cd into your project directory e.g:"cd Desktop/glimesh"
-3.Type command "npm install" on your terminal
-4.Type command"npm start" to run your project,open http://localhost:3000 to view it  on your browser
- Note:You may have to disable cors on your browser as the api does not allow requests from non_http url
+1.Create docker ID on docker hub
+2.Download and install Docker Desktop.
+3.Sign in to the Docker Desktop application using the Docker ID you’ve just created.
+4.Open command prompt
+5.Type command "docker login" to log into your docker account.
+6.Type command"docker pull chirchir4/glimesh-glimesh" to pull repository containing the project
+7.Type command "docker  run chirchir4/glimesh-glimesh"to run the project.
+8.On your browser, open localhost:3000 to view the app.
+
+NOTE:You may need to disable cors on your browser as the api does not accept requests from non-http urls.
