@@ -2,7 +2,7 @@ version: "3.8"
 services:
   glimesh:
     build: ../Glimesh
-    container_name: glimesh_c
+    container_name: glimesh3_c
     ports:
       - '3000:3000'
     stdin_open: true

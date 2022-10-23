@@ -4,7 +4,11 @@ import { getToken } from './auth/auth';
 import Header from './Header';
 import { TableExampleCelled } from './components/Table';
 import MetadataContext from './Context/Metadata'
+// import { MetricsProvider } from '@cabify/prom-react';
+// import { callConfig, customPromMetrics } from './Metrics/Custom';
 
+import { MetricDefinition, useMetrics } from '@cabify/prom-react';
+import { createCaller } from 'react-outside-call';
 
 function App() {
   useEffect(() => {
@@ -21,15 +25,33 @@ function App() {
     checkToken()
   }, [])
 
+
+  const PROM_UI_REQUEST_SECONDS_COUNT: MetricDefinition = {
+    type: 'histogram',
+    name: 'glimesh_recv_Packets',
+    description: 'A metric for glimesh recv  pkts',
+    buckets: [0.2, 0.5, 1, 2, 5, 10],
+  };
+
+  const customPromMetrics: MetricDefinition[] = [
+    PROM_UI_REQUEST_SECONDS_COUNT,
+  ];
+
+  const callConfig = createCaller({
+    // eslint-disable-next-line react-hooks/rules-of-hooks
+    metrics: () => useMetrics(),
+  });
   return (
-    <div className="App">
+
+    < div className="App" >
       <Header />
       <div className="tableSection">
         <MetadataContext>
           <TableExampleCelled />
         </MetadataContext>
       </div>
-    </div>
+    </div >
+
   );
 }
 
