@@ -2,12 +2,7 @@ import React, { useEffect } from 'react'
 import { Table } from 'semantic-ui-react'
 import { useContext } from 'react'
 import { MetadataContext } from '../Context/Metadata'
-// import { useMetrics } from '@cabify/prom-react';
-import axios, { AxiosInstance } from 'axios';
-import { callConfig, PROM_UI_REQUEST_SECONDS_COUNT } from '../Metrics/Custom';
-
-// import config from '../constants/config';
-
+import { nackPackets, recvPackets, sourceBitrate, sourcePing, lostPackets, registry } from '../Metrics/customMetrics';
 
 
 export const TableExampleCelled = () => {
@@ -32,6 +27,12 @@ export const TableExampleCelled = () => {
                     </Table.Header>
                     <Table.Body key={index}>
                         {user.followingLiveChannels.map((channel, index) => {
+                            lostPackets.observe(channel.stream.metadata.lostPackets);
+                            nackPackets.observe(channel.stream.metadata.nackPackets);
+                            recvPackets.observe(channel.stream.metadata.recvPackets);
+                            sourceBitrate.observe(channel.stream.metadata.sourceBitrate);
+                            sourcePing.observe(channel.stream.metadata.sourcePing);
+                            console.log(registry.metrics());
                             return (
                                 <Table.Row key={index} >
                                     <Table.Cell>{channel.title}</Table.Cell>
@@ -49,38 +50,6 @@ export const TableExampleCelled = () => {
             </>
         )
     })
-    // const { observe } = useMetrics();
-
-    // const downloadReport = () => {
-    //     observe('PROM_UI_REQUEST_SECONDS_COUNT', { custom_tag: 'custom value' }, 1);
-
-    //     // your app code
-    // };
-    const apiHttpService: AxiosInstance = axios.create({});
-
-    apiHttpService.interceptors.request.use((req) => {
-        req.headers = {
-            'request-startTime': performance.now().toString(),
-        };
-        return req;
-    });
-
-    apiHttpService.interceptors.response.use((res) => {
-        const start = res.config.headers?.['request-startTime'];
-        const end = performance.now();
-
-        callConfig.call.metrics?.observe(
-            PROM_UI_REQUEST_SECONDS_COUNT.name,
-            {
-                uri: "http//localhost:3000".replace(/\?.*/, '') || 'unknown',
-                method: res.config.method?.toUpperCase() || 'unknown',
-                statusCode: res.status.toString(),
-            },
-            (end - start) / 1000,
-        );
-
-        return res;
-    });
 
     return (
         <div style={{

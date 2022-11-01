@@ -3,8 +3,8 @@
 3.Sign in to the Docker Desktop application using the Docker ID you’ve just created.
 4.Open command prompt
 5.Type command "docker login" to log into your docker account.
-6.Type command"docker pull chirchir4/glimesh-glimesh" to pull repository containing the project
-7.Type command "docker  run chirchir4/glimesh-glimesh"to run the project.
+6.Type command"docker pull chirchir4/glimesh-glimesh3" to pull repository containing the project
+7.Type command "docker  run  -it -p 3000:3000 -e "PORT=3000" chirchir4/glimesh-glimesh3"to run the project.
 8.On your browser, open localhost:3000 to view the app.
 
 NOTE:You may need to disable cors on your browser as the api does not accept requests from non-http urls.

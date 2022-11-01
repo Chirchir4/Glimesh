@@ -2,7 +2,16 @@ version: "3.8"
 services:
   glimesh:
     build: ../Glimesh
-    container_name: glimesh3_c
+    container_name: glimesh4_c
     ports:
-      - '3000:3000'
+      - "3000:3000"
     stdin_open: true
+  
+  prometheus:
+    image: prom/prometheus
+    ports:
+      - "9090:9090"
+    volumes:
+      - type: bind 
+        source: ./prometheus.yml
+        target: /etc/prometheus/prometheus.yml
