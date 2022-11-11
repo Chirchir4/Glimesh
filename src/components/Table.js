@@ -1,8 +1,9 @@
-import React, { useEffect } from 'react'
+// import React,from 'react'
 import { Table } from 'semantic-ui-react'
 import { useContext } from 'react'
 import { MetadataContext } from '../Context/Metadata'
-import { nackPackets, recvPackets, sourceBitrate, sourcePing, lostPackets, registry } from '../Metrics/customMetrics';
+
+
 
 
 export const TableExampleCelled = () => {
@@ -14,9 +15,9 @@ export const TableExampleCelled = () => {
                     <div style={styleSheet.label}>Streamer: <span style={styleSheet.span}>{user.username}</span></div>
                     <div style={styleSheet.label}>Id: <span style={styleSheet.span}>{user.id}</span></div>
                 </div>
-                <Table celled style={{ marginBottom: "35px", marginTop: '0px', width: "70%" }}>
+                <Table celled style={{ marginBottom: "35px", marginTop: '0px', width: "70%" }} key={index}>
                     <Table.Header style={{ backgroundColor: 'grey' }}>
-                        <Table.Row>
+                        <Table.Row >
                             <Table.HeaderCell>Channel Title</Table.HeaderCell>
                             <Table.HeaderCell>Lost Packets</Table.HeaderCell>
                             <Table.HeaderCell>Nack Packets</Table.HeaderCell>
@@ -27,12 +28,6 @@ export const TableExampleCelled = () => {
                     </Table.Header>
                     <Table.Body key={index}>
                         {user.followingLiveChannels.map((channel, index) => {
-                            lostPackets.observe(channel.stream.metadata.lostPackets);
-                            nackPackets.observe(channel.stream.metadata.nackPackets);
-                            recvPackets.observe(channel.stream.metadata.recvPackets);
-                            sourceBitrate.observe(channel.stream.metadata.sourceBitrate);
-                            sourcePing.observe(channel.stream.metadata.sourcePing);
-                            console.log(registry.metrics());
                             return (
                                 <Table.Row key={index} >
                                     <Table.Cell>{channel.title}</Table.Cell>
@@ -50,7 +45,6 @@ export const TableExampleCelled = () => {
             </>
         )
     })
-
     return (
         <div style={{
             display: 'flex',
@@ -58,11 +52,9 @@ export const TableExampleCelled = () => {
             alignItems: "center"
         }}>
             {glimeshData()}
-            {/* {downloadReport()} */}
         </div>
     )
 }
-
 const styleSheet = {
     span: {
         fontSize: '20px',

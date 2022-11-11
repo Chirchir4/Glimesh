@@ -28,10 +28,9 @@ scrape_configs:
       - targets: ["localhost:9090"]
       
   - job_name: "glimesh"
-
     # metrics_path defaults to '/metrics'
     # scheme defaults to 'http'.
-
     static_configs:
-      - targets: ["localhost:3000"]
+    #insert port of pushgateway
+      - targets: []
       # -targets:./node_exporter --web.listen-address 127.0.0.1:8080

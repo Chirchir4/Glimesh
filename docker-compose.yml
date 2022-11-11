@@ -1,6 +1,6 @@
 version: "3.8"
 services:
-  glimesh:
+  glimesh4:
     build: ../Glimesh
     container_name: glimesh4_c
     ports:

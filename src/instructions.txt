@@ -3,8 +3,27 @@
 3.Sign in to the Docker Desktop application using the Docker ID you’ve just created.
 4.Open command prompt
 5.Type command "docker login" to log into your docker account.
-6.Type command"docker pull chirchir4/glimesh-glimesh3" to pull repository containing the project
-7.Type command "docker  run  -it -p 3000:3000 -e "PORT=3000" chirchir4/glimesh-glimesh3"to run the project.
+6.Type command"docker pull chirchir4/glimesh-glimesh4" to pull repository containing the project
+7.Type command "docker  run  -it -p 3000:3000 -e "PORT=3000" chirchir4/glimesh-glimesh4"to run the project.
 8.On your browser, open localhost:3000 to view the app.
 
-NOTE:You may need to disable cors on your browser as the api does not accept requests from non-http urls.
+NOTE:You may need to disable cors on your browser as the api does not accept requests from non-https urls.
+
+e.g In chrome:
+1.Open your command prompt terminal 
+2.Run the following command "google-chrome --disable-web-security"
+
+To scrape metrics
+1.Access config.js file in the folder constants and enter your pushgateway url  
+2.In prometheus.yml file enter your pushgateway port number e.g
+
+ - job_name: "glimesh"
+    # metrics_path defaults to '/metrics'
+    # scheme defaults to 'http'.
+    static_configs:
+    #insert port of pushgateway
+      - targets: ['localhost:9090']
+      
+
+
+
